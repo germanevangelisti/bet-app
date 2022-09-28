@@ -1,0 +1,8 @@
+.teamLogoWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.imgClass {
+  padding: 0 20px 0 0;
+}
