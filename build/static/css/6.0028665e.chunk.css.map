@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/components/teams/styles.css"],"names":[],"mappings":"AAAA,iBACE,YAAa,CACb,kBACF,CAEA,UACE,kBACF","file":"6.0028665e.chunk.css","sourcesContent":[".teamLogoWrapper {\n  display: flex;\n  flex-direction: row;\n}\n\n.imgClass {\n  padding: 0 20px 0 0;\n}\n"]}

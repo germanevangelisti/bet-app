@@ -1,0 +1,15 @@
+.homeLayout {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.potentialBetCards {
+  display: flex;
+}
+
+.title {
+  font-size: medium;
+  color: black;
+}
+
