@@ -16,8 +16,8 @@ import {
   getTeamStatusService,
   selectAllTeams,
   fetchTeams,
-  fetchSchedule,
 } from "../../redux/slices/teamsSlice";
+import { fetchSchedule } from "../../redux/slices/seasonSlice";
 
 import "./styles.css";
 

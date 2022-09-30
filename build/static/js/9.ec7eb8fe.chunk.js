@@ -1,2 +1,0 @@
-(this["webpackJsonpbet-app"]=this["webpackJsonpbet-app"]||[]).push([[9],{204:function(t,e,n){"use strict";n.r(e);n(2);var p=n(19);e.default=function(){return Object(p.jsx)(p.Fragment,{children:"HOIME SETERADLAs"})}}}]);
-//# sourceMappingURL=9.ec7eb8fe.chunk.js.map

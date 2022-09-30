@@ -1,1 +1,0 @@
-{"version":3,"sources":["components/home/index.js"],"names":["Home"],"mappings":"0GAAA,wBAMeA,UAJF,WACX,OAAO,uDACR,C","file":"static/js/9.ec7eb8fe.chunk.js","sourcesContent":["import React from \"react\";\n\nconst Home = () => {\n  return <>HOIME SETERADLAs</>;\n};\n\nexport default Home;\n"],"sourceRoot":""}
