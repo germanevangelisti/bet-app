@@ -27,7 +27,10 @@ const Teams = () => {
   const teamsServiceStatus = useSelector(getTeamStatusService);
 
   const onRefresh = () => dispatch(fetchTeams());
-  const getSchedule = () => dispatch(fetchSchedule());
+  const getSchedule = () =>
+    fetch("http://localhost:3001/users").then((resp) =>
+      console.log(resp.json())
+    );
 
   useEffect(() => {
     if (teamsServiceStatus === "idle") {
