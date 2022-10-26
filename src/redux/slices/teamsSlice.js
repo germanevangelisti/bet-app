@@ -4,7 +4,7 @@ import {
   createAsyncThunk,
 } from "@reduxjs/toolkit";
 
-import { teamsDataMapper, getTeamsData } from "../../firebase/dataHelpers";
+const { REACT_APP_SERVER_URL } = process.env;
 
 const teamsAdapter = createEntityAdapter({
   selectId: (team) => team.code,
@@ -24,10 +24,10 @@ export const fetchTeams = createAsyncThunk(
   `${sliceName}/fetchTeams`,
   async (_args, { rejectWithValue, fulfillWithValue }) => {
     try {
-      const teamsByFirebase = await getTeamsData().then((teams) => {
-        return teams.map((team) => teamsDataMapper(team));
-      });
-      return fulfillWithValue(teamsByFirebase);
+      const response = await fetch(`${REACT_APP_SERVER_URL}/teams`).then(
+        (response) => response.json()
+      );
+      return fulfillWithValue(response);
     } catch (error) {
       return rejectWithValue(error);
     }

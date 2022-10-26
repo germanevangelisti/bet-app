@@ -4,8 +4,9 @@
   padding: 20px;
 }
 
-.potentialBetCards {
+.cardsWrapper {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .title {
@@ -13,3 +14,7 @@
   color: black;
 }
 
+.teamsWrapper {
+  display: flex;
+  justify-content: space-between;
+}
