@@ -1,18 +1,17 @@
-import {
-  createSlice,
-  //   createEntityAdapter,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const { REACT_APP_SPORTSDATA_URL, REACT_APP_SPORTSDATA_KEY } = process.env;
-
-// const seasonAdapter = createEntityAdapter();
+const { REACT_APP_SERVER_URL } = process.env;
 
 const sliceName = "season";
 
 const initialState = {
   currentSeason: null,
   schedule: null,
+  standing: {
+    status: "idle",
+    error: null,
+    data: null,
+  },
   status: "idle",
   error: null,
 };
@@ -22,7 +21,7 @@ export const fetchCurrentSeason = createAsyncThunk(
   async (_args, { rejectWithValue, fulfillWithValue }) => {
     try {
       const response = await fetch(
-        `${REACT_APP_SPORTSDATA_URL}/scores/json/CurrentSeason?key=${REACT_APP_SPORTSDATA_KEY}`
+        `${REACT_APP_SERVER_URL}/currentSeason`
       ).then((response) => response.json());
       return fulfillWithValue(response);
     } catch (error) {
@@ -36,7 +35,7 @@ export const fetchSchedule = createAsyncThunk(
   async (_args, { rejectWithValue, fulfillWithValue }) => {
     try {
       const response = await fetch(
-        `${REACT_APP_SPORTSDATA_URL}/scores/json/Games/2023?key=${REACT_APP_SPORTSDATA_KEY}`
+        `${REACT_APP_SERVER_URL}/currentSeason/schedule`
       ).then((response) => response.json());
       return fulfillWithValue(response);
     } catch (error) {
@@ -45,6 +44,19 @@ export const fetchSchedule = createAsyncThunk(
   }
 );
 
+export const fetchTeamsStanding = createAsyncThunk(
+  `${sliceName}/fetchTeamsStanding`,
+  async (_args, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      const response = await fetch(
+        `${REACT_APP_SERVER_URL}/teamsStanding`
+      ).then((response) => response.json());
+      return fulfillWithValue(response);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 export const seasonSlice = createSlice({
   name: sliceName,
   initialState,
@@ -72,10 +84,27 @@ export const seasonSlice = createSlice({
       state.status = "FAILED";
       state.error = action.error.message;
     },
+    [fetchTeamsStanding.pending]: (state) => {
+      state.standing.status = "LOADING";
+    },
+    [fetchTeamsStanding.fulfilled]: (state, action) => {
+      state.standing.status = "SUCCEEDED";
+      state.standing.data = action.payload;
+    },
+    [fetchTeamsStanding.rejected]: (state, action) => {
+      state.standing.status = "FAILED";
+      state.standing.error = action.error.message;
+    },
   },
 });
 
 export const getCurrentSeason = (globalState) =>
   globalState.season.currentSeason;
+  export const getCurrentContenderTeams = (globalState) =>
+  globalState.season.standing.data?.contenderTeams;
+export const getCurrentMediumTeams = (globalState) =>
+  globalState.season.standing.data?.mediumTeams;
+export const getCurrentLooserTeams = (globalState) =>
+  globalState.season.standing.data?.looserTeams;
 
 export default seasonSlice.reducer;

@@ -5,11 +5,22 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-const BasicCard = ({ header, title, subtitle, body, buttonText, onClick }) => {
+const BasicCard = ({
+  header,
+  title,
+  subtitle,
+  body,
+  isPivot,
+  buttonText,
+  onClick,
+}) => {
   return (
-    <Card variant="outlined" sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+    <Card
+      variant="outlined"
+      sx={{ minWidth: 275, margin: 1, borderColor: isPivot ? "red" : "black" }}
+    >
+      <CardContent sx={{ backgroundColor: isPivot ? "gold" : "white" }}>
+        <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
           {header}
         </Typography>
         <Typography variant="h5" component="div">
@@ -18,13 +29,15 @@ const BasicCard = ({ header, title, subtitle, body, buttonText, onClick }) => {
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {subtitle}
         </Typography>
-        <Typography variant="body2">{body}</Typography>
+        <Typography variant="body2" sx={{ color: isPivot ? "red" : "black" }}>
+          {body}
+        </Typography>
       </CardContent>
-      <CardActions>
+      {/* <CardActions>
         <Button size="small" onClick={() => onClick()}>
           {buttonText}
         </Button>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 };
