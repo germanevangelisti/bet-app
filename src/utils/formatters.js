@@ -19,7 +19,7 @@ export const formatDayjsDate = (date) =>
 export const getTeamClass = (teamClass) => {
   switch (teamClass) {
     case "C":
-      return "Container";
+      return "Contender";
     case "M":
       return "Medium";
     case "L":

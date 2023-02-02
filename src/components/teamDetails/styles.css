@@ -1,0 +1,15 @@
+.layout {
+  min-width: 600px;
+  height: 100%;
+  background-color: white;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+}
+
+.subtitle-contender {
+  color: red;
+}

@@ -18,3 +18,26 @@
   display: flex;
   justify-content: space-between;
 }
+
+.infoGames {
+  margin-top: 10px;
+  border: solid 1px;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 9%;
+}
+
+.infoGameContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.dateControls {
+  display: flex;
+  gap: 1%
+}
+
+.gamesSkeleton {
+  height: 350px;
+}

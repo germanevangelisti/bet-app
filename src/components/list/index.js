@@ -6,15 +6,20 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-const BasicList = ({ items, teamClass }) => {
+const BasicList = ({ items, teamClass, onClick }) => {
   return (
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "white" }}>
       <nav aria-label="teams clasification">
         <List>
           <p>Current {teamClass} Teams</p>
-          {items.length &&
+          {items?.length &&
             items.map((item) => (
-              <ListItem disablePadding key={item.code}>
+              <ListItem
+                disablePadding
+                key={item.code}
+                onClick={() => onClick(item)}
+                sx={{ borderTop: 1 }}
+              >
                 <ListItemButton>
                   <ListItemIcon>
                     <img
