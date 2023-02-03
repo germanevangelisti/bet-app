@@ -100,11 +100,13 @@ export const seasonSlice = createSlice({
 
 export const getCurrentSeason = (globalState) =>
   globalState.season.currentSeason;
-  export const getCurrentContenderTeams = (globalState) =>
+export const getCurrentContenderTeams = (globalState) =>
   globalState.season.standing.data?.contenderTeams;
 export const getCurrentMediumTeams = (globalState) =>
   globalState.season.standing.data?.mediumTeams;
 export const getCurrentLooserTeams = (globalState) =>
   globalState.season.standing.data?.looserTeams;
+export const getLakersInfo = (globalState) =>
+  globalState.season.standing.data?.lakersInfo;
 
 export default seasonSlice.reducer;

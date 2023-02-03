@@ -8,6 +8,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
+import Stack from "@mui/material/Stack";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Typography from "@mui/material/Typography";
 
 import BasicCard from "../card/index.js";
 import BasicList from "../list/index.js";
@@ -21,6 +26,7 @@ import {
   getCurrentContenderTeams,
   getCurrentMediumTeams,
   getCurrentLooserTeams,
+  getLakersInfo,
 } from "../../redux/slices/seasonSlice";
 import {
   fetchGamesByDate,
@@ -40,6 +46,7 @@ const Home = () => {
   const currentMediumTeams = useSelector(getCurrentMediumTeams);
   const currentLooserTeams = useSelector(getCurrentLooserTeams);
   const fetchTeamsClassStatus = useSelector(getFetchTeamsClassStatus);
+  const lakersInfo = useSelector(getLakersInfo);
 
   const today = new Date();
   const tomorrow = new Date();
@@ -229,9 +236,36 @@ const Home = () => {
     </Drawer>
   );
 
+  const renderLakersRecordWithShiftedEnergyAlert = () => (
+    <Stack sx={{ width: "25%" }} spacing={2}>
+      <Alert
+        variant="filled"
+        severity="warning"
+        iconMapping={{
+          warning: (
+            <ListItemIcon>
+              <img
+                src={lakersInfo?.logo}
+                alt="Lakers Logo"
+                width="35px"
+                height="35px"
+              ></img>
+            </ListItemIcon>
+          ),
+        }}
+      >
+        <AlertTitle>LAKERS RECORD WITH SHIFTED ENERGY !</AlertTitle>
+        <Typography variant="body1">
+          {lakersInfo?.recordWithShiftedEnergy}
+        </Typography>
+      </Alert>
+    </Stack>
+  );
+
   return (
     <div className="homeLayout">
-      <div>
+      {renderLakersRecordWithShiftedEnergyAlert()}
+      <div style={{ marginTop: "10px" }}>
         {today.toDateString()} | Season day {countdown.getDate()}
       </div>
       <br />
