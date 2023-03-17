@@ -14,10 +14,10 @@ import AlertTitle from "@mui/material/AlertTitle";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Typography from "@mui/material/Typography";
 
-import BasicCard from "../card/index.js";
-import BasicList from "../list/index.js";
-import GameDetails from "../gameDetails/index.jsx";
-import TeamDetails from "../teamDetails/index.jsx";
+import BasicCard from "../../components/card/index.js";
+import BasicList from "../../components/list/index.js";
+import GameDetails from "../../components/gameDetails/index.jsx";
+import TeamDetails from "../../components/teamDetails/index.jsx";
 
 import {
   fetchCurrentSeason,
