@@ -9,7 +9,7 @@ import "./index.css";
 
 const AppBar = lazy(() => import("./components/appBar/index.js"));
 const Home = lazy(() => import("./components/home/index.js"));
-const Dashboard = lazy(() => import("./components/dashboard/index.js"));
+const BetSimulator = lazy(() => import("./components/betSimulator/index.js"));
 const Teams = lazy(() => import("./components/teams/index.js"));
 
 ReactDOM.render(
@@ -19,7 +19,7 @@ ReactDOM.render(
         <AppBar />
         <Switch>
           <Route exact path={["/home", "/"]} component={Home} />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/betSimulator" component={BetSimulator} />
           <Route path="/teams" component={Teams} /> 
         </Switch>
       </BrowserRouter>

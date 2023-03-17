@@ -16,6 +16,9 @@ const monthMapper = {
 export const formatDayjsDate = (date) =>
   `${date.$y}-${monthMapper[date.$M]}-${date.$D}`;
 
+export const formatDateToString = (date) =>
+  `${date.getFullYear()}-${monthMapper[date.getMonth()]}-${date.getDate()}`;
+
 export const getTeamClass = (teamClass) => {
   switch (teamClass) {
     case "C":

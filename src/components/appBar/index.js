@@ -15,8 +15,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
-const pages = ["Home", "Dashboard", "Teams"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = ["Home", "BetSimulator"];
+const settings = ["Profile", "Account", "BetSimulator", "Logout"];
 
 const theme = createTheme({
   palette: {
