@@ -4,6 +4,12 @@
   padding: 20px;
 }
 
+.alertsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1%;
+}
+
 .cardsWrapper {
   display: flex;
   flex-wrap: wrap;
@@ -35,7 +41,7 @@
 
 .dateControls {
   display: flex;
-  gap: 1%
+  gap: 1%;
 }
 
 .gamesSkeleton {

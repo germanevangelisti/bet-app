@@ -55,6 +55,9 @@ const Home = () => {
   yesterday.setDate(today.getDate() - 1);
   const seasonStartDay = new Date(currentSeason?.regularSeasonStartDate || "");
   const countdown = new Date(Math.abs(seasonStartDay - today));
+  const RwDSEalertSeverity = lakersInfo?.recordStatusWithShiftedEnergy > 0.5 ? "success" : "error";
+  const alertSeverity =
+    lakersInfo?.winningPerc >= 0.5 ? "success" : "error";
 
   const [value, setValue] = useState(dayjs());
   const [showInfo, setShowInfo] = useState(false);
@@ -240,7 +243,7 @@ const Home = () => {
     <Stack sx={{ width: "25%" }} spacing={2}>
       <Alert
         variant="filled"
-        severity="warning"
+        severity={RwDSEalertSeverity}
         iconMapping={{
           warning: (
             <ListItemIcon>
@@ -262,9 +265,36 @@ const Home = () => {
     </Stack>
   );
 
+  const renderIsAbove500 = () => (
+    <Stack sx={{ width: "20%" }} spacing={2}>
+      <Alert
+        variant="filled"
+        severity={alertSeverity}
+        iconMapping={{
+          warning: (
+            <ListItemIcon>
+              <img
+                src={lakersInfo?.logo}
+                alt="Lakers Logo"
+                width="35px"
+                height="35px"
+              ></img>a
+            </ListItemIcon>
+          ),
+        }}
+      >
+        <AlertTitle>LAKERS HEAD IN THE LAKE</AlertTitle>
+        <Typography variant="body1">{lakersInfo?.record}</Typography>
+      </Alert>
+    </Stack>
+  );
+
   return (
     <div className="homeLayout">
-      {renderLakersRecordWithShiftedEnergyAlert()}
+      <div className="alertsWrapper">
+        {renderLakersRecordWithShiftedEnergyAlert()}
+        {renderIsAbove500()}
+      </div>
       <div style={{ marginTop: "10px" }}>
         {today.toDateString()} | Season day {countdown.getDate()}
       </div>
