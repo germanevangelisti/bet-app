@@ -1,0 +1,25 @@
+.betSimulatorLayout {
+  display: flex;
+  padding: 15px;
+}
+
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+  padding-right: 25px;
+}
+
+.emptyList {
+}
+
+.matchBettingHead {
+  display: flex;
+}
+
+.matchBettingTitles {
+  display: flex;
+  justify-content: space-around;
+  border: solid 1px black;
+  border-bottom: 0;
+  min-width: 600px;
+}

@@ -1,0 +1,43 @@
+.matchingBetLayout {
+  display: flex;
+  justify-content: space-around;
+  border: solid 1px black;
+  border-bottom: 0;
+  padding: 10px 0px;
+  min-width: 600px;
+}
+
+.matchingBetLayout:last-child {
+  border-bottom: solid 1px black;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+}
+
+.dateTime {
+  color: #0CA789;
+  margin-top: 5px;
+  font-size: small;
+}
+
+.oddButtonWrapper {
+  display: flex;
+  gap: 25%;
+  align-items: center;
+}
+
+.oddButton {
+  width: 125px;
+  height: 50px;
+  border-radius: 2px;
+}
+
+.oddButton-selected {
+  width: 125px;
+  height: 50px;
+  border-radius: 2px;
+  background-color: #0CA789;
+}

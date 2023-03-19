@@ -1,0 +1,33 @@
+.singleBetLayout {
+  display: flex;
+  flex-direction: column;
+  border: solid 1px black;
+  min-width: 300px;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 0px 10px;
+}
+
+.bettingInfo {
+  color: #0ca789;
+  padding: 15px 10px;
+  max-width: 300px;
+}
+
+.inputWrapper {
+  padding: 0px 10px;
+}
+
+.potentialReturns {
+  font-weight: bold;
+  padding: 15px 10px;
+}
+
+.amount {
+  font-weight: bold;
+  color: #0ca789;
+}

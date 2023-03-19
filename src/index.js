@@ -8,9 +8,9 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 
 const AppBar = lazy(() => import("./components/appBar/index.js"));
-const Home = lazy(() => import("./components/home/index.js"));
-const BetSimulator = lazy(() => import("./components/betSimulator/index.js"));
-const Teams = lazy(() => import("./components/teams/index.js"));
+const Home = lazy(() => import("./pages/home/index.js"));
+const BetSimulator = lazy(() => import("./pages/betSimulator/index.js"));
+const Teams = lazy(() => import("./pages/teams/index.js"));
 
 ReactDOM.render(
   <Provider store={store}>

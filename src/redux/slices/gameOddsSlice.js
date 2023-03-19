@@ -9,7 +9,7 @@ import { formatDateToString } from "../../utils/formatters.js";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const gameOddsAdapter = createEntityAdapter({
-  selectId: (gameOdd) => gameOdd.GameId,
+  selectId: (gameOdd) => gameOdd.gameID,
 });
 
 const sliceName = "gameOdds";
@@ -47,8 +47,9 @@ export const gamesSlice = createSlice({
       state.status = "LOADING";
     },
     [fetchGameOddsByDate.fulfilled]: (state, action) => {
+      const {gameOddsByDate} = action.payload
       state.status = "SUCCEEDED";
-      state = action.payload;
+      gameOddsAdapter.setMany(state, gameOddsByDate);
     },
     [fetchGameOddsByDate.rejected]: (state, action) => {
       state.status = "FAILED";
