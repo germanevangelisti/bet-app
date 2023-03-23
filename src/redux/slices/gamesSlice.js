@@ -9,14 +9,14 @@ import { formatDayjsDate } from "../../utils/formatters.js";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const gamesAdapter = createEntityAdapter({
-  selectId: (game) => game.GameID,
+  selectId: (game) => game.gameID,
 });
 
 const sliceName = "games";
 const emptyInitialState = gamesAdapter.getInitialState();
 
 const initialState = {
-  games: emptyInitialState,
+  ...emptyInitialState,
   status: "idle",
   error: null,
 };
@@ -27,7 +27,7 @@ export const fetchGamesByDate = createAsyncThunk(
     try {
       const dateFormatted = formatDayjsDate(date);
       const response = await fetch(
-        `${REACT_APP_SERVER_URL}/gamesByDate/${encodeURIComponent(
+        `${REACT_APP_SERVER_URL}/games/gamesByDate/${encodeURIComponent(
           dateFormatted
         )}` // date formatted: 2023-JAN-17
       ).then((response) => response.json());
@@ -48,7 +48,7 @@ export const gamesSlice = createSlice({
     },
     [fetchGamesByDate.fulfilled]: (state, action) => {
       state.status = "SUCCEEDED";
-      state.games = action.payload.gamesByDate;
+      gamesAdapter.setAll(state, action.payload);
     },
     [fetchGamesByDate.rejected]: (state, action) => {
       state.status = "FAILED";
@@ -58,10 +58,9 @@ export const gamesSlice = createSlice({
 });
 
 export const { selectAll: selectAllGames } = gamesAdapter.getSelectors(
-  (state) => state[sliceName].games
+  (state) => state[sliceName]
 );
 
-export const getGamesByDate = (globalState) => globalState.games.games;
-export const getFetchTeamsClassStatus = (globalState) => globalState.games.status;
+export const getFetchTeamsClassStatus = (state) => state[sliceName].status;
 
 export default gamesSlice.reducer;

@@ -18,6 +18,11 @@ const initialState = {
   teams: emptyInitialState,
   status: "idle",
   error: null,
+  standing: {
+    status: "idle",
+    error: null,
+    data: null,
+  },
 };
 
 export const fetchTeams = createAsyncThunk(
@@ -27,6 +32,20 @@ export const fetchTeams = createAsyncThunk(
       const response = await fetch(`${REACT_APP_SERVER_URL}/teams`).then(
         (response) => response.json()
       );
+      return fulfillWithValue(response);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const fetchTeamsStanding = createAsyncThunk(
+  `${sliceName}/fetchTeamsStanding`,
+  async (_args, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      const response = await fetch(
+        `${REACT_APP_SERVER_URL}/teams/standing`
+      ).then((response) => response.json());
       return fulfillWithValue(response);
     } catch (error) {
       return rejectWithValue(error);
@@ -52,6 +71,17 @@ export const teamsSlice = createSlice({
       state.status = "FAILED";
       state.error = action.error.message;
     },
+    [fetchTeamsStanding.pending]: (state) => {
+      state.standing.status = "LOADING";
+    },
+    [fetchTeamsStanding.fulfilled]: (state, action) => {
+      state.standing.status = "SUCCEEDED";
+      state.standing.data = action.payload;
+    },
+    [fetchTeamsStanding.rejected]: (state, action) => {
+      state.standing.status = "FAILED";
+      state.standing.error = action.error.message;
+    },
   },
 });
 
@@ -59,6 +89,14 @@ export const { selectById: selectTeam, selectAll: selectAllTeams } =
   teamsAdapter.getSelectors((state) => state[sliceName].teams);
 
 export const getTeamStatusService = (globalState) => globalState.teams.status;
+export const getCurrentContenderTeams = (globalState) =>
+  globalState.teams.standing.data?.contenderTeams;
+export const getCurrentMediumTeams = (globalState) =>
+  globalState.teams.standing.data?.mediumTeams;
+export const getCurrentLooserTeams = (globalState) =>
+  globalState.teams.standing.data?.looserTeams;
+export const getLakersInfo = (globalState) =>
+  globalState.teams.standing.data?.lakersInfo;
 
 export const { resetTeams } = teamsSlice.actions;
 

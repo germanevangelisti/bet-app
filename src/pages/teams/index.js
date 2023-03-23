@@ -17,7 +17,6 @@ import {
   selectAllTeams,
   fetchTeams,
 } from "../../redux/slices/teamsSlice";
-import { fetchSchedule } from "../../redux/slices/seasonSlice";
 
 import "./styles.css";
 
@@ -27,7 +26,6 @@ const Teams = () => {
   const teamsServiceStatus = useSelector(getTeamStatusService);
 
   const onRefresh = () => dispatch(fetchTeams());
-  const getSchedule = () => dispatch(fetchSchedule())
 
   useEffect(() => {
     if (teamsServiceStatus === "idle") {
@@ -54,9 +52,6 @@ const Teams = () => {
         <Stack spacing={2} direction="row">
           <Button onClick={() => onRefresh()} variant="contained">
             Refresh
-          </Button>
-          <Button onClick={() => getSchedule()} variant="contained">
-            Get Schedule
           </Button>
         </Stack>
         {teamsServiceStatus === "LOADING" ? (

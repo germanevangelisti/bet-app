@@ -27,7 +27,7 @@ export const fetchGameOddsByDate = createAsyncThunk(
     try {
       const dateFormatted = formatDateToString(date);
       const response = await fetch(
-        `${REACT_APP_SERVER_URL}/gameOddsByDate/${encodeURIComponent(
+        `${REACT_APP_SERVER_URL}/games/gameOddsByDate/${encodeURIComponent(
           dateFormatted
         )}` // date formatted: 2023-JAN-17
       ).then((response) => response.json());
@@ -47,9 +47,8 @@ export const gamesSlice = createSlice({
       state.status = "LOADING";
     },
     [fetchGameOddsByDate.fulfilled]: (state, action) => {
-      const {gameOddsByDate} = action.payload
       state.status = "SUCCEEDED";
-      gameOddsAdapter.setMany(state, gameOddsByDate);
+      gameOddsAdapter.setMany(state, action.payload);
     },
     [fetchGameOddsByDate.rejected]: (state, action) => {
       state.status = "FAILED";

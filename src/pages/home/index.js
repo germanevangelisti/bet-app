@@ -11,7 +11,6 @@ import Drawer from "@mui/material/Drawer";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import Typography from "@mui/material/Typography";
 
 import BasicCard from "../../components/card/index.js";
@@ -20,28 +19,25 @@ import GameDetails from "../../components/gameDetails/index.jsx";
 import TeamDetails from "../../components/teamDetails/index.jsx";
 
 import {
-  fetchCurrentSeason,
   fetchTeamsStanding,
-  getCurrentSeason,
   getCurrentContenderTeams,
   getCurrentMediumTeams,
   getCurrentLooserTeams,
   getLakersInfo,
-} from "../../redux/slices/seasonSlice";
+} from "../../redux/slices/teamsSlice";
 import {
   fetchGamesByDate,
-  getGamesByDate,
+  selectAllGames,
   getFetchTeamsClassStatus,
 } from "../../redux/slices/gamesSlice";
 
-import { getTeamClass, getDateTime } from "../../utils/formatters";
+import { getTeamClass } from "../../utils/formatters";
 
 import "./styles.css";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const currentSeason = useSelector(getCurrentSeason);
-  const gamesByDate = useSelector(getGamesByDate);
+  const gamesByDate = useSelector(selectAllGames);
   const currentContenderTeams = useSelector(getCurrentContenderTeams);
   const currentMediumTeams = useSelector(getCurrentMediumTeams);
   const currentLooserTeams = useSelector(getCurrentLooserTeams);
@@ -53,8 +49,6 @@ const Home = () => {
   tomorrow.setDate(today.getDate() + 1);
   const yesterday = new Date();
   yesterday.setDate(today.getDate() - 1);
-  const seasonStartDay = new Date(currentSeason?.regularSeasonStartDate || "");
-  const countdown = new Date(Math.abs(seasonStartDay - today));
   const RwDSEalertSeverity =
     lakersInfo?.recordStatusWithShiftedEnergy > 0.5 ? "success" : "error";
   const alertSeverity = lakersInfo?.winningPerc >= 0.5 ? "success" : "error";
@@ -86,7 +80,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchCurrentSeason());
     dispatch(fetchTeamsStanding());
     dispatch(fetchGamesByDate(dayjs(today)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -155,7 +148,7 @@ const Home = () => {
     return (
       <div className="cardsWrapper">
         {showInfo ? (
-          gamesByDate.map((game) => (
+          gamesByDate?.map((game) => (
             <div key={`${game.GameID}`}>
               <BasicCard
                 header={`${game.isPivot ? "PIVOT Game" : "Regular Game"}`}
@@ -210,16 +203,14 @@ const Home = () => {
         <div className="infoGames">
           <div className="infoGameContent">
             <span>pivot games: {pivotGames?.length}</span>
-            {gamesByDate[0]?.isGameClosed && (
-              <>
-                <span style={{ color: "green" }}>
-                  {pivotGamesSucceeded?.length} succeeded
-                </span>
-                <span style={{ color: "red" }}>
-                  {pivotGamesFailed?.length} falied
-                </span>
-              </>
-            )}
+            <>
+              <span style={{ color: "green" }}>
+                {pivotGamesSucceeded?.length} succeeded
+              </span>
+              <span style={{ color: "red" }}>
+                {pivotGamesFailed?.length} falied
+              </span>
+            </>
           </div>
           <div className="infoGameContent">
             <span>regular games: {regularGames?.length}</span>
@@ -241,10 +232,7 @@ const Home = () => {
 
   const renderLakersRecordWithShiftedEnergyAlert = () => (
     <Stack sx={{ width: "25%" }} spacing={2}>
-      <Alert
-        variant="filled"
-        severity={RwDSEalertSeverity}
-      >
+      <Alert variant="filled" severity={RwDSEalertSeverity}>
         <AlertTitle>LAKERS RECORD SINCE TRADE DEADLINE</AlertTitle>
         <Typography variant="body1">
           {lakersInfo?.recordWithShiftedEnergy}
@@ -267,9 +255,6 @@ const Home = () => {
       <div className="alertsWrapper">
         {renderLakersRecordWithShiftedEnergyAlert()}
         {renderIsAbove500()}
-      </div>
-      <div style={{ marginTop: "10px" }}>
-        {today.toDateString()} | Season day {countdown.getDate()}
       </div>
       <br />
       <div className="dateControls">
