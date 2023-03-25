@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useHistory } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useDispatch } from "react-redux";
 import { red } from "@mui/material/colors";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -15,19 +16,22 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
-const pages = ["Home", "BetSimulator"];
+import { logoutUser } from "../../redux/slices/userSlice";
+
+const pages = ["BetSimulator"];
 const settings = ["Profile", "Account", "BetSimulator", "Logout"];
 
 const theme = createTheme({
   palette: {
     primary: {
       main: red[700],
-    }
+    },
   },
 });
 
 const ResponsiveAppBar = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -44,6 +48,10 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
   };
 
   const navigateTo = (page) => history.push(`/${page.toLowerCase()}`);
@@ -64,7 +72,7 @@ const ResponsiveAppBar = () => {
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
-                color: "inherit",
+                color: "#4e4747",
                 textDecoration: "none",
               }}
             >
@@ -124,7 +132,7 @@ const ResponsiveAppBar = () => {
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
-                color: "inherit",
+                color: "#4e4747",
                 textDecoration: "none",
               }}
             >
